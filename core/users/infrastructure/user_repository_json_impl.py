@@ -14,6 +14,8 @@ class UserRepositoryJsonImpl(UserRepository):
                 data = json.load(file)
                 return data['users'] if 'users' in data else []
         except FileNotFoundError:
+            with open(self.file_path, 'w') as file:
+                json.dump({'users': []}, file, indent=4)
             return []
 
     def _save_data(self):

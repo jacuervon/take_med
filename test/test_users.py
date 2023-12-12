@@ -1,3 +1,4 @@
+import random
 from core.users.domain.user import User
 from core.users.application.user_create_use_case import UserCreateUseCase
 from core.users.application.user_delete_use_case import UserDeleteUseCase
@@ -18,7 +19,9 @@ def test_user_model():
     assert user.birthday == "1990-01-01"
 
 def test_uses_cases():
-    user_repository = UserRepositoryJsonImpl('./../tmp_data/users.json')
+    random_number = random.randint(1, 1000);
+    test_file = './test/data/users'+str(random_number)+'.json'  
+    user_repository = UserRepositoryJsonImpl(test_file)
     user_create_use_case = UserCreateUseCase(user_repository)
     user_delete_use_case = UserDeleteUseCase(user_repository)
     user_get_all_use_case = UserGetAllUseCase(user_repository)
